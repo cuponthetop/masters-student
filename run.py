@@ -12,7 +12,7 @@ def load_config(config_path):
 def run_masters_student(backend_type, config):
 
 if __name__ == "__main__":
-  args = get-parser().parse_args()
+  args = get_parser().parse_args()
 
   config = load_config(args.config)
 
