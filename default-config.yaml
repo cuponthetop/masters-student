@@ -1,0 +1,52 @@
+backend: tensorflow
+
+problem:
+  dataset:
+    name: MNIST
+    package: dataset.implmented.mnist
+    data-dir: mnist
+
+  preprocessor:
+    name: MNISTGeneration
+    package: preprocessor.implmented.mnist-generation
+    processed-shapes:
+      images:
+        first: 784
+        second: 1
+      labels:
+        first : 10
+
+model:
+  name: Autoencoder
+  package: model.implemented.autoencoder
+
+hyperparameter:
+  batch-size: 32
+  max-iteration: 10000
+
+result:
+  result-dir: result
+  temp-dir: temp
+
+  plotter:
+    name: SamplingGenerationPlotter
+    package: plotter.implemented.sampling-generation-plotter
+    sample-number: 10
+    plot-dir: plots
+
+  saver:
+    name: IterationSaver
+    package: saver.implemented.iteration-saver
+    save-interval: 1000
+    save-dir: models
+
+  reporter:
+    name: IterationReporter
+    package: reporter.implemented.iteration-reporter
+    report-interval: 1000
+    report-target: someTensorBoard
+
+  benchmarker:
+    name: ReconstructionMSE
+    package: benchmarker.implemented.reconstruction-mse
+    benchmark-dir: benchmarks
