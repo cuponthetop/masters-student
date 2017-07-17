@@ -2,45 +2,25 @@
 """
 
 
-def import_name_from_package(package_path, name, target_name):
+def import_package_from_config(config):
     """
-    An approximate implementation of import.
-    Import a name from package as a target_name
+    :param config: the configuration file specifying package path and class name to import
+                    configuration must have "name" field and "package" field
+    :return: imported class (specified by config["name"]) from specified package (by config["package"])
     """
+    import util.constant as const
+    import importlib
 
-    import importlib.util
-    import sys
+    try:
+        class_name = config[const.CFG_NAME]
+    except KeyError:
+        raise KeyError('Field named "name" was not found from configuration')
 
-    if target_name in sys.modules:
-        raise ImportError(
-            'other module is already imported as %s' % target_name)
+    try:
+        package_name = config[const.CFG_PACKAGE]
+    except KeyError:
+        raise KeyError('Field named "package" was not found from configuration')
 
-    absolute_name = importlib.util.resolve_name(name, package_path)
+    mod = importlib.import_module(package_name)
 
-    if absolute_name in sys.modules:
-        sys.modules[target_name] = sys.modules[absolute_name]
-        return sys.modules[target_name]
-
-    path = None
-
-    if '.' in absolute_name:
-        parent_name, _, child_name = absolute_name.rpartition('.')
-        parent_module = import_module(parent_name)
-        path = parent_module.spec.submodule_search_locations
-
-    for finder in sys.meta_path:
-        spec = finder.find_spec(absolute_name, path)
-        if spec is not None:
-            break
-    else:
-        raise ImportError('No module named %s' % absolute_name)
-
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-
-    sys.modules[target_name] = module
-
-    if path is not None:
-        setattr(parent_module, child_name, module)
-
-    return module
+    return getattr(mod, class_name)

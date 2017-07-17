@@ -3,12 +3,12 @@ backend: tensorflow
 problem:
   dataset:
     name: MNIST
-    package: dataset.implmented.mnist
+    package: dataset.implemented.mnist
     data-dir: mnist
 
   preprocessor:
     name: MNISTGeneration
-    package: preprocessor.implmented.mnist-generation
+    package: preprocessor.implemented.mnistgeneration
     processed-shapes:
       images:
         first: 784

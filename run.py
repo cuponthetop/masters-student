@@ -1,6 +1,6 @@
 """
 """
-
+from masterstudent.tensorflowstudent import TensorFlowStudent
 from args import get_parser
 
 
@@ -14,8 +14,16 @@ def load_config(config_path):
 
 
 def run_masters_student(backend_type, config):
-    pass
+    """
+    :param backend_type:
+    :param config:
+    :return:
+    """
+    student = None
+    if backend_type == "tensorflow":
+        student = TensorFlowStudent(config)
 
+    student.start()
 
 if __name__ == "__main__":
     args = get_parser().parse_args()
