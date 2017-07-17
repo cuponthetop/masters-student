@@ -61,8 +61,9 @@ class TensorFlowStudent:
         sess.run(tf.global_variables_initializer())
 
         # run model
-        while self.model.stop_training() == False:
+        while not self.model.stop_training():
             self.model.train()
 
         # generate results - should be done while training
+
 
