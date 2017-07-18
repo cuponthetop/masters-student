@@ -8,13 +8,13 @@ class TensorFlowStudent:
         from util.package import import_package_from_config
         import util.constant as const
 
-        self.dataset = None
-        self.preprocessor = None
-        self.model = None
-        self.plotter = None
-        self.reporter = None
-        self.saver = None
-        self.benchmarker = None
+        self._dataset = None
+        self._preprocessor = None
+        self._model = None
+        self._plotters = []
+        self._reporters = []
+        self._savers = []
+        self._benchmarkers = []
 
         try:
             # import specified problem package

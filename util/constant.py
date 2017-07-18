@@ -58,3 +58,5 @@ CFG_BENCHMARKER = "benchmarker"
 
 # under benchmarker
 CFG_BENCHMARK_DIR = "benchmark-dir"
+
+CFG_KEY_ERROR_MSG = '"%s" field is not present in config object under "%s" field'

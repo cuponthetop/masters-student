@@ -1,10 +1,13 @@
 from collections import namedtuple
-from dataset.dataset import IDataset
+from dataset.base import IDataset
 
 
 class MNIST(IDataset):
     def __init__(self, config):
         super().__init__(config)
+
+    def _check_config(self, config):
+        super()._check_config(config)
 
     def get_data(self):
         """
