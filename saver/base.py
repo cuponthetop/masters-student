@@ -16,6 +16,7 @@ class ISaver(metaclass=ABCMeta):
 
         self._saver_config = config[const.CFG_RESULT][const.CFG_SAVER]
         self.__name = self._saver_config[const.CFG_NAME]
+        self.__save_dir = self._saver_config[const.CFG_SAVE_DIR]
 
     def _check_config(self, config):
         import util.constant as const
@@ -28,6 +29,9 @@ class ISaver(metaclass=ABCMeta):
 
         if const.CFG_NAME not in config[const.CFG_RESULT][const.CFG_SAVER]:
             raise KeyError(const.CFG_KEY_ERROR_MSG % const.CFG_NAME, const.CFG_SAVER)
+
+        if const.CFG_SAVE_DIR not in config[const.CFG_RESULT][const.CFG_SAVER]:
+            raise KeyError(const.CFG_KEY_ERROR_MSG % const.CFG_SAVE_DIR, const.CFG_SAVER)
 
     @abstractmethod
     def is_save(self):
@@ -44,3 +48,7 @@ class ISaver(metaclass=ABCMeta):
     @property
     def name(self):
         return self.__name
+
+    @property
+    def save_dir(self):
+        return self.__save_dir

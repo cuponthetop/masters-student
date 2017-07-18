@@ -16,6 +16,7 @@ class IBenchmarker(metaclass=ABCMeta):
 
         self._benchmarker_config = config[const.CFG_RESULT][const.CFG_BENCHMARKER]
         self.__name = self._benchmarker_config[const.CFG_NAME]
+        self.__benchmark_dir = self._benchmarker_config[const.CFG_BENCHMARK_DIR]
 
     def _check_config(self, config):
         import util.constant as const
@@ -28,6 +29,9 @@ class IBenchmarker(metaclass=ABCMeta):
 
         if const.CFG_NAME not in config[const.CFG_RESULT][const.CFG_BENCHMARKER]:
             raise KeyError(const.CFG_KEY_ERROR_MSG % const.CFG_NAME, const.CFG_BENCHMARKER)
+
+        if const.CFG_BENCHMARK_DIR not in config[const.CFG_RESULT][const.CFG_BENCHMARKER]:
+            raise KeyError(const.CFG_KEY_ERROR_MSG % const.CFG_BENCHMARK_DIR, const.CFG_BENCHMARKER)
 
     @abstractmethod
     def compute_score(self):
@@ -44,3 +48,8 @@ class IBenchmarker(metaclass=ABCMeta):
     @property
     def name(self):
         return self.__name
+
+    @property
+    def benchmark_dir(self):
+        return self.__benchmark_dir
+

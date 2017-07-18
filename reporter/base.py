@@ -17,6 +17,7 @@ class IReporter(metaclass=ABCMeta):
 
         self._reporter_config = config[const.CFG_RESULT][const.CFG_REPORTER]
         self.__name = self._reporter_config[const.CFG_NAME]
+        self.__report_target = self._reporter_config[const.CFG_REPORT_TARGET]
 
     def _check_config(self, config):
         import util.constant as const
@@ -29,6 +30,9 @@ class IReporter(metaclass=ABCMeta):
 
         if const.CFG_NAME not in config[const.CFG_RESULT][const.CFG_REPORTER]:
             raise KeyError(const.CFG_KEY_ERROR_MSG % const.CFG_NAME, const.CFG_REPORTER)
+
+        if const.CFG_REPORT_TARGET not in config[const.CFG_RESULT][const.CFG_REPORTER]:
+            raise KeyError(const.CFG_KEY_ERROR_MSG % const.CFG_NAME, const.CFG_REPORT_TARGET)
 
     @abstractmethod
     def is_report(self):
@@ -45,3 +49,7 @@ class IReporter(metaclass=ABCMeta):
     @property
     def name(self):
         return self.__name
+
+    @property
+    def report_target(self):
+        return self.__report_target

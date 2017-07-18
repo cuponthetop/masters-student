@@ -6,8 +6,9 @@ class IModel(metaclass=ABCMeta):
     """
     """
 
-    def __init__(self, config):
+    def __init__(self, config, preprocessor):
         import util.constant as const
+
         try:
             self._check_config(config)
         except KeyError:
@@ -15,8 +16,7 @@ class IModel(metaclass=ABCMeta):
         except:
             raise
 
-        self._whole_data = None
-        self._part_data = None
+        self.__preprocessor = preprocessor
         self.__plotters = []
         self.__savers = []
         self.__reporters = []
@@ -37,13 +37,6 @@ class IModel(metaclass=ABCMeta):
         if const.CFG_NAME not in config[const.CFG_MODEL]:
             raise KeyError(const.CFG_KEY_ERROR_MSG % const.CFG_NAME, const.CFG_MODEL)
 
-    def set_data(self, data):
-        """
-        :param data: dataset to train on, need to be set before calling IModel.train()
-        :return: None
-        """
-        self.__whole_data = data
-
     @abstractmethod
     def stop_training(self):
         """
@@ -51,15 +44,9 @@ class IModel(metaclass=ABCMeta):
         """
         return True
 
-    @abstractmethod
-    def part_data(self):
-        """
-        function to split whole_data into parts thus changing data to train on
-        :return: None
-        """
-        self.__part_data = []
-
     def train(self, session):
+        train_data = self.__preprocessor.part_data()
+
         train_results = (session.run(target) for target in self._target_functions)
 
         (plotter.plot() for plotter in self.__plotters if plotter.is_plot())
