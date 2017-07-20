@@ -22,16 +22,16 @@ class IBenchmarker(metaclass=ABCMeta):
         import util.constant as const
 
         if const.CFG_RESULT not in config:
-            raise KeyError(const.CFG_KEY_ERROR_MSG % const.CFG_RESULT, 'root')
+            raise KeyError(const.MSG_KEY_ERROR % const.CFG_RESULT, 'root')
 
         if const.CFG_BENCHMARKER not in config[const.CFG_RESULT]:
-            raise KeyError(const.CFG_KEY_ERROR_MSG % const.CFG_BENCHMARKER, const.CFG_PROBLEM)
+            raise KeyError(const.MSG_KEY_ERROR % const.CFG_BENCHMARKER, const.CFG_PROBLEM)
 
         if const.CFG_NAME not in config[const.CFG_RESULT][const.CFG_BENCHMARKER]:
-            raise KeyError(const.CFG_KEY_ERROR_MSG % const.CFG_NAME, const.CFG_BENCHMARKER)
+            raise KeyError(const.MSG_KEY_ERROR % const.CFG_NAME, const.CFG_BENCHMARKER)
 
         if const.CFG_BENCHMARK_DIR not in config[const.CFG_RESULT][const.CFG_BENCHMARKER]:
-            raise KeyError(const.CFG_KEY_ERROR_MSG % const.CFG_BENCHMARK_DIR, const.CFG_BENCHMARKER)
+            raise KeyError(const.MSG_KEY_ERROR % const.CFG_BENCHMARK_DIR, const.CFG_BENCHMARKER)
 
     @abstractmethod
     def compute_score(self):

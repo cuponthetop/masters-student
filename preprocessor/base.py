@@ -1,4 +1,5 @@
 from abc import ABCMeta, abstractmethod
+import numpy as np
 
 
 class IPreprocessor(metaclass=ABCMeta):
@@ -27,13 +28,13 @@ class IPreprocessor(metaclass=ABCMeta):
         import util.constant as const
 
         if const.CFG_RESULT not in config:
-            raise KeyError(const.CFG_KEY_ERROR_MSG % const.CFG_RESULT, 'root')
+            raise KeyError(const.MSG_KEY_ERROR % const.CFG_RESULT, 'root')
 
         if const.CFG_PREPROCESSOR not in config[const.CFG_RESULT]:
-            raise KeyError(const.CFG_KEY_ERROR_MSG % const.CFG_PREPROCESSOR, const.CFG_PROBLEM)
+            raise KeyError(const.MSG_KEY_ERROR % const.CFG_PREPROCESSOR, const.CFG_PROBLEM)
 
         if const.CFG_NAME not in config[const.CFG_RESULT][const.CFG_PREPROCESSOR]:
-            raise KeyError(const.CFG_KEY_ERROR_MSG % const.CFG_NAME, const.CFG_PREPROCESSOR)
+            raise KeyError(const.MSG_KEY_ERROR % const.CFG_NAME, const.CFG_PREPROCESSOR)
 
     @abstractmethod
     def process(self):
@@ -57,3 +58,23 @@ class IPreprocessor(metaclass=ABCMeta):
     @property
     def name(self):
         return self.__name
+
+    @property
+    def temp_dir(self):
+        import util.constant as const
+        return const.TEMP_DIR
+
+
+def dense_to_one_hot(dense_label, num_class):
+    """Convert class labels from scalars to one-hot vectors."""
+    num_label = dense_label.shape[0]
+    index_offset = np.arange(num_label) * num_class
+    labels_one_hot = np.zeros((num_label, num_class))
+    labels_one_hot.flat[index_offset + dense_label.ravel()] = 1
+    return labels_one_hot
+
+
+def int_to_float(np_array, max_value):
+    np_array = np_array.astype(np.float32)
+    np_array = np.multiply(np_array, 1.0 / max_value)
+    return np_array

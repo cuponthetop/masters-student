@@ -22,16 +22,16 @@ class IPlotter(metaclass=ABCMeta):
         import util.constant as const
 
         if const.CFG_RESULT not in config:
-            raise KeyError(const.CFG_KEY_ERROR_MSG % const.CFG_RESULT, 'root')
+            raise KeyError(const.MSG_KEY_ERROR % const.CFG_RESULT, 'root')
 
         if const.CFG_PLOTTER not in config[const.CFG_RESULT]:
-            raise KeyError(const.CFG_KEY_ERROR_MSG % const.CFG_PLOTTER, const.CFG_PROBLEM)
+            raise KeyError(const.MSG_KEY_ERROR % const.CFG_PLOTTER, const.CFG_PROBLEM)
 
         if const.CFG_NAME not in config[const.CFG_RESULT][const.CFG_PLOTTER]:
-            raise KeyError(const.CFG_KEY_ERROR_MSG % const.CFG_NAME, const.CFG_PLOTTER)
+            raise KeyError(const.MSG_KEY_ERROR % const.CFG_NAME, const.CFG_PLOTTER)
 
         if const.CFG_PLOT_DIR not in config[const.CFG_RESULT][const.CFG_PLOTTER]:
-            raise KeyError(const.CFG_KEY_ERROR_MSG % const.CFG_PLOT_DIR, const.CFG_PLOTTER)
+            raise KeyError(const.MSG_KEY_ERROR % const.CFG_PLOT_DIR, const.CFG_PLOTTER)
 
     @abstractmethod
     def is_plot(self):

@@ -32,10 +32,10 @@ class IModel(metaclass=ABCMeta):
         import util.constant as const
 
         if const.CFG_MODEL not in config:
-            raise KeyError(const.CFG_KEY_ERROR_MSG % const.CFG_MODEL, 'root')
+            raise KeyError(const.MSG_KEY_ERROR % const.CFG_MODEL, 'root')
 
         if const.CFG_NAME not in config[const.CFG_MODEL]:
-            raise KeyError(const.CFG_KEY_ERROR_MSG % const.CFG_NAME, const.CFG_MODEL)
+            raise KeyError(const.MSG_KEY_ERROR % const.CFG_NAME, const.CFG_MODEL)
 
     @abstractmethod
     def stop_training(self):
@@ -45,6 +45,11 @@ class IModel(metaclass=ABCMeta):
         return True
 
     def train(self, session):
+        """
+        probably need to change session related part depending on backend type
+        :param session:
+        :return:
+        """
         train_data = self.__preprocessor.part_data()
 
         train_results = (session.run(target) for target in self._target_functions)

@@ -23,16 +23,16 @@ class IReporter(metaclass=ABCMeta):
         import util.constant as const
 
         if const.CFG_RESULT not in config:
-            raise KeyError(const.CFG_KEY_ERROR_MSG % const.CFG_RESULT, 'root')
+            raise KeyError(const.MSG_KEY_ERROR % const.CFG_RESULT, 'root')
 
         if const.CFG_REPORTER not in config[const.CFG_RESULT]:
-            raise KeyError(const.CFG_KEY_ERROR_MSG % const.CFG_REPORTER, const.CFG_PROBLEM)
+            raise KeyError(const.MSG_KEY_ERROR % const.CFG_REPORTER, const.CFG_PROBLEM)
 
         if const.CFG_NAME not in config[const.CFG_RESULT][const.CFG_REPORTER]:
-            raise KeyError(const.CFG_KEY_ERROR_MSG % const.CFG_NAME, const.CFG_REPORTER)
+            raise KeyError(const.MSG_KEY_ERROR % const.CFG_NAME, const.CFG_REPORTER)
 
         if const.CFG_REPORT_TARGET not in config[const.CFG_RESULT][const.CFG_REPORTER]:
-            raise KeyError(const.CFG_KEY_ERROR_MSG % const.CFG_NAME, const.CFG_REPORT_TARGET)
+            raise KeyError(const.MSG_KEY_ERROR % const.CFG_NAME, const.CFG_REPORT_TARGET)
 
     @abstractmethod
     def is_report(self):
