@@ -9,12 +9,16 @@ problem:
   preprocessor:
     name: MNISTGeneration
     package: preprocessor.implemented.mnistgeneration
+    processed-dir: mnist-generation
     processed-shapes:
-      images:
-        first: 784
-        second: 1
-      labels:
-        first : 10
+      - name: images
+        shape:
+          - 1: -1
+          - 2: 784
+      - name: labels
+        shape:
+          - 1: -1
+          - 2: 10
 
 model:
   name: Autoencoder
@@ -23,6 +27,7 @@ model:
 hyperparameter:
   batch-size: 32
   max-iteration: 10000
+  learning-rate: 0.005
 
 result:
   result-dir: result

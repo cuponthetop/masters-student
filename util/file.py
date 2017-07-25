@@ -1,11 +1,10 @@
 import os
-import collections
 import logging
 
 
 def make_dir(dirpath):
     try:
-        os.makedirs(path=dirpath, exist_ok=True)
+        os.makedirs(name=dirpath, exist_ok=True)
         logging.info('Successfully created directory - %s' % dirpath)
     except:
         raise
@@ -26,3 +25,7 @@ def clean_dir(dirpath):
         logging.warning('shutil.rmtree is not safe in your OS, abort cleaning directory - %s' % dirpath)
     make_dir(dirpath)
 
+
+def file_exists(filepath):
+    from pathlib import Path
+    return Path(filepath).is_file()

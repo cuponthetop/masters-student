@@ -20,10 +20,18 @@ CFG_DATA_DIR = "data-dir"
 CFG_PREPROCESSOR = "preprocessor"
 
 # under preprocessor
+CFG_PROCESSED_DIR = "processed-dir"
 CFG_PROCESSED_SHAPES = "processed-shapes"
 
 # under processed shapes
-CFG_IMAGES = "images"
+CFG_SHAPE_NAME = "name"
+CFG_SHAPE_SHAPE = "shape"
+
+CFG_SHAPE_DIMENSION_1 = "1"
+CFG_SHAPE_DIMENSION_2 = "2"
+CFG_SHAPE_DIMENSION_3 = "3"
+CFG_SHAPE_DIMENSION_4 = "4"
+CFG_SHAPE_DIMENSION_5 = "5"
 
 # under model
 

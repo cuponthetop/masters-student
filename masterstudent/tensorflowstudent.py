@@ -46,11 +46,11 @@ class TensorFlowStudent:
             return False
         if self.preprocessor is None:
             return False
-        if self.model is None:
-            return False
+        # if self.model is None:
+        #     return False
 
         # run problem setting
-        self.dataset.get_data()
+        self.dataset.load_data()
 
         processed_data = self.preprocessor.process()
 
